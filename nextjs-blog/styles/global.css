@@ -6,6 +6,8 @@ html,
 body {
   padding: 0;
   margin: 0;
+  overflow-x: hidden;
+  background: #111 !important; /* Set background color to dark gray */
   font-family:
     Inter,
     -apple-system,
@@ -27,10 +29,54 @@ a {
 }
 
 * {
+  margin: 0;
+  padding: 0;
   box-sizing: border-box;
+  font-family: "Quicksand", sans-serif; /* Set Quicksand as default font */
 }
 
 img {
   max-width: 100%;
   height: auto;
+}
+
+/* width */
+::-webkit-scrollbar {
+  width: 7px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  border-radius: 10px;
+}
+ 
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: white; 
+  border-radius: 10px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  cursor: pointer; 
+}
+
+.slide-in{
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100%;
+  background-color: aliceblue;
+  transform-origin: bottom;
+}
+
+.slide-out{
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100%;
+  background-color: aliceblue;
+  transform-origin: top;
 }
