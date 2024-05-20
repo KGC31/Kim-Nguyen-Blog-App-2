@@ -1,13 +1,18 @@
-import Header from '../components/header'
-import Page from '../components/page'
+'use client'
+import styles from '../styles/index.module.css'
 
-// import '../styles/global.css'
+import About from '../components/index/about'
+import Hero from '../components/index/hero'
 
 export default function Home() {
   return (
-    <Page>
-      <Header></Header>
-      <h1>Hello world</h1>
-    </Page>
+    <>
+        <section>
+            <Hero/>
+        </section>
+        <section className="h-screen flex items-center justify-center">
+            <About />
+        </section>
+    </>
   );
 }

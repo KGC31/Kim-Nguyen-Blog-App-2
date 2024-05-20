@@ -1,0 +1,17 @@
+.hero_title{
+    font-family: 'Torwelten';
+    color: rgb(255 255 255);
+    font-size: 4rem;
+    z-index: 10;
+    cursor: pointer;
+}
+
+.mask{
+    position: absolute;
+    mask-image: url('../public/Mask.svg');
+    background: rgb(56 189 248);
+    mask-repeat: no-repeat;
+    color: #111;
+    mask-position: 10%;
+    mask-size: 15rem;
+}

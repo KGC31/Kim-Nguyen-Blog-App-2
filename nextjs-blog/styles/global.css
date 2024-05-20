@@ -2,25 +2,28 @@
 @tailwind components;
 @tailwind utilities;
 
+@font-face {
+  font-family: "Neue Haas Grotesk Display Pro 75 Bold";
+  src: url("https://db.onlinewebfonts.com/t/0209bfe594ed24b75ee2aac06529e4f9.eot");
+  src: url("https://db.onlinewebfonts.com/t/0209bfe594ed24b75ee2aac06529e4f9.eot?#iefix")format("embedded-opentype"),
+  url("https://db.onlinewebfonts.com/t/0209bfe594ed24b75ee2aac06529e4f9.woff2")format("woff2"),
+  url("https://db.onlinewebfonts.com/t/0209bfe594ed24b75ee2aac06529e4f9.woff")format("woff"),
+  url("https://db.onlinewebfonts.com/t/0209bfe594ed24b75ee2aac06529e4f9.ttf")format("truetype"),
+  url("https://db.onlinewebfonts.com/t/0209bfe594ed24b75ee2aac06529e4f9.svg#Neue Haas Grotesk Display Pro 75 Bold")format("svg");
+}
+
+@font-face {
+  font-family: Torwelten;
+  src: url('../public/fonts/TorweltenMono.ttf');
+}
+
 html,
 body {
   padding: 0;
   margin: 0;
   overflow-x: hidden;
   background: #111 !important; /* Set background color to dark gray */
-  font-family:
-    Inter,
-    -apple-system,
-    BlinkMacSystemFont,
-    Segoe UI,
-    Roboto,
-    Oxygen,
-    Ubuntu,
-    Cantarell,
-    Fira Sans,
-    Droid Sans,
-    Helvetica Neue,
-    sans-serif;
+  font-family: "Neue Haas Grotesk Display Pro 75 Bold";
 }
 
 a {
@@ -32,7 +35,7 @@ a {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: "Quicksand", sans-serif; /* Set Quicksand as default font */
+  font-family: "Neue Haas Grotesk Display Pro 75 Bold";
 }
 
 img {
