@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import BaseUserManager, AbstractBaseUser, PermissionsMixin
 from django.utils import timezone
+import uuid
 
 # Custom user manager for account behaviors
 class CustomUserManager(BaseUserManager):
@@ -41,6 +42,7 @@ class CustomUserManager(BaseUserManager):
 
 # User account schema design
 class User(AbstractBaseUser, PermissionsMixin):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     email = models.EmailField(verbose_name="Email", unique=True, blank=False, null=False)
     first_name = models.CharField(verbose_name="First name", blank=True, null=False, default='', max_length=255)
     last_name = models.CharField(verbose_name="Last name", blank=True, null=False, default='', max_length=255)
