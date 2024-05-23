@@ -2,15 +2,23 @@
   "private": true,
   "scripts": {
     "build": "next build",
-    "dev": "next dev",
+    "dev": "next dev -p 3000",
     "start": "next start"
   },
   "dependencies": {
+    "@tsparticles/engine": "^3.4.0",
+    "@tsparticles/react": "^3.0.0",
+    "animejs": "^3.2.2",
+    "axios": "^1.7.2",
+    "cobe": "^0.6.3",
     "framer-motion": "^11.1.9",
+    "gsap": "^3.12.5",
     "ldrs": "^1.0.1",
     "next": "latest",
     "react": "18.2.0",
-    "react-dom": "18.2.0"
+    "react-dom": "18.2.0",
+    "react-tsparticles": "^2.12.2",
+    "tsparticles-slim": "^2.12.0"
   },
   "engines": {
     "node": ">=18"
