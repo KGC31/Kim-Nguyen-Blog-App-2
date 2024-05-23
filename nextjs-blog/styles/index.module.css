@@ -5,13 +5,65 @@
     z-index: 10;
     cursor: pointer;
 }
-
-.mask{
-    position: absolute;
-    mask-image: url('../public/Mask.svg');
-    background: rgb(56 189 248);
-    mask-repeat: no-repeat;
-    color: #111;
-    mask-position: 10%;
-    mask-size: 15rem;
+.icons {
+    display: flex;
+    column-gap: 25px;
+}
+.icon {
+    display: inline-flex;
+    width: 40px;
+    height: 40px;
+    text-decoration: none;
+    font-size: 18px;
+    color: #fff;
+    border-radius: 50%;
+    outline: 2px solid #fff;
+    transition-property: outline-offset, outline-color, background-color;
+    transition-duration: 0.25s;
+}
+.icon:hover {
+    outline-offset: 4px;
+}
+.icon i {
+    margin: auto;
+}
+.icon:hover i {
+    animation: shake 0.25s;
+}
+.icon--facebook:hover {
+    background-color: #2374e1;
+    outline-color: #2374e1;
+}
+.icon--instagram:hover {
+    background-image: radial-gradient(
+        circle at 30% 107%,
+        #fdf497 0%,
+        #fdf497 5%,
+        #fd5949 45%,
+        #d6249f 60%,
+        #285aeb 90%
+    );
+    outline-color: #a02d76;
+}
+.icon--linkedin:hover {
+    background-color: #0077b5;
+    outline-color: #0077b5;
+}
+.icon--github:hover {
+    background-color: #30363d;
+    outline-color: #30363d;
+}
+@keyframes shake {
+    10% {
+        transform: rotate(15deg);
+    }
+    20% {
+        transform: rotate(-15deg);
+    }
+    30% {
+        transform: rotate(15deg);
+    }
+    40% {
+        transform: rotate(-15deg);
+    }
 }

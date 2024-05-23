@@ -34,7 +34,7 @@ export const shuffle = (el) => {
   const a = anime({
     targets: params,
     progress: 1,
-    delay: 1000,
+    delay: 500,
     duration: 1000,
     easing: 'easeInQuad',
     update: () => {
