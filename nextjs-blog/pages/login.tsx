@@ -1,7 +1,6 @@
 import { FormEvent, useState } from 'react';
 import { useRouter } from 'next/router';
 import styles from '../styles/login.module.css';
-import { getCsrfToken } from '../utils/csrf';
 
 export default function Login() {
   const [email, setEmail] = useState('');
@@ -13,20 +12,18 @@ export default function Login() {
     event.preventDefault();
     setError('');
 
-    const csrfToken = await getCsrfToken();
-
-    const formData = new FormData();
-    formData.append('email', email);
-    formData.append('password', password);
+    const formData = {
+      email: email,
+      password: password,
+    };
 
     try {
       const response = await fetch('http://localhost:8000/api/auth/login/', {
         method: 'POST',
-        body: formData,
-        credentials: 'include',  // Ensure cookies are included in the request
         headers: {
-          'X-CSRFToken': csrfToken,
+          'Content-Type': 'application/json',
         },
+        body: JSON.stringify(formData),
       });
 
       if (!response.ok) {
@@ -34,7 +31,13 @@ export default function Login() {
       }
 
       const data = await response.json();
-      sessionStorage.setItem('token', data.token);
+      
+      // Store the token in localStorage
+      localStorage.setItem('access_token', data.access);
+      localStorage.setItem('refresh_token', data.refresh);
+      localStorage.setItem('user_id', data.user_id);
+
+      // Redirect to the homepage or another protected route
       router.push('/');
     } catch (error) {
       setError('Invalid email or password');

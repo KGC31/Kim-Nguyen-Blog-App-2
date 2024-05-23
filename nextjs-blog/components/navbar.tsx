@@ -8,12 +8,15 @@ export default function navbar (){
     const router = useRouter();
 
     useEffect(() => {
-        const storedToken = sessionStorage.getItem('token');
+        const storedToken = localStorage.getItem('access_token');
+        console.log(storedToken)
         setToken(storedToken);
     }, []);
 
     const handleLogout = () => {
-        sessionStorage.removeItem('token');
+        localStorage.removeItem('access_token');
+        localStorage.removeItem('refresh_token');
+        localStorage.removeItem('user_id');
         setToken(null);
         router.push('/login');
     };
@@ -43,7 +46,7 @@ export default function navbar (){
                                     <path d="M9.664 7.375L9.664 2.75L21.0928 2.75L21.0928 21.25L9.664 21.25L9.664 16.625" stroke="white" stroke-width="2" stroke-linecap="square"/>
                                 </svg>
                             </Link>
-                            <Link href="/register" className=''>
+                            <Link href="/signup" className=''>
                                 <svg id="Add User"width="30" height="30" viewBox="0 0 26 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <path d="M19.2929 8.66882V12.6788M21.338 10.6737H17.248" stroke="white" stroke-width="2" stroke-linecap="square" stroke-linejoin="round"/>
                                     <path d="M10.2049 14.8188C13.4613 14.8104 16.2301 16.3056 17.2478 19.5241C15.1964 20.7746 12.7818 21.2563 10.2049 21.25C7.62803 21.2563 5.21338 20.7746 3.16202 19.5241C4.18092 16.3021 6.94505 14.8104 10.2049 14.8188Z" stroke="white" stroke-width="2" stroke-linecap="square"/>
@@ -59,7 +62,7 @@ export default function navbar (){
                                         <path d="M16.6699 7.16961C16.6699 9.61056 14.6911 11.5893 12.2501 11.5893C9.80919 11.5893 7.83041 9.61056 7.83041 7.16961C7.83041 4.72866 9.80919 2.74988 12.2501 2.74988C14.6911 2.74988 16.6699 4.72866 16.6699 7.16961Z" stroke="white" stroke-width="2" stroke-linecap="square"/>
                                     </svg>
                                 </Link>
-                                <Link onClick={handleLogout} href="/" className=''>
+                                <Link onClick={handleLogout} href="/login" className=''>
                                     <svg id="Logout"width="30" height="30" viewBox="0 0 26 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                         <path d="M21.019 11.9997L8.24121 11.9997" stroke="red" stroke-width="2" stroke-linecap="square"/>
                                         <path d="M18.479 8.7251L21.7686 12.0001L18.479 15.2761" stroke="red" stroke-width="1.5" stroke-linecap="square"/>
