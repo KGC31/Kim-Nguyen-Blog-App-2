@@ -32,10 +32,21 @@ export default function Login() {
 
       const data = await response.json();
       
-      // Store the token in localStorage
-      localStorage.setItem('access_token', data.access);
-      localStorage.setItem('refresh_token', data.refresh);
+      // Store the tokens and user ID in localStorage
+      localStorage.setItem('access_token', data.access_token);
+      localStorage.setItem('refresh_token', data.refresh_token);
       localStorage.setItem('user_id', data.user_id);
+
+      // Calculate the time until the access token expires
+      const expiresIn = data.access_expires * 1000 - Date.now(); // Convert from seconds to milliseconds
+
+      // Set a timeout to clear the access token after it expires
+      setTimeout(() => {
+        localStorage.removeItem('access_token');
+        localStorage.removeItem('user_id');
+        alert('Your session has expired. Please log in again.');
+        router.push('/login');  // Redirect to login page after token expiration
+      }, expiresIn);
 
       // Redirect to the homepage or another protected route
       router.push('/');

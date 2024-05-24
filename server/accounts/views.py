@@ -8,6 +8,7 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from .serializers import UserSerializer, CustomTokenObtainPairSerializer
 from rest_framework_simplejwt.views import TokenObtainPairView
+from rest_framework_simplejwt.tokens import RefreshToken, AccessToken
 from .models import User
 
 class SignupAPIView(APIView):
@@ -38,10 +39,14 @@ class CustomTokenObtainPairView(TokenObtainPairView):
             raise InvalidToken(e.args[0])
 
         user = serializer.user
+        refresh = RefreshToken.for_user(user)
+        access = refresh.access_token
+
         return Response({
-            'refresh': serializer.validated_data['refresh'],
-            'access': serializer.validated_data['access'],
-            'user_id': str(user.id)
+            'refresh_token': str(refresh),
+            'access_token': str(access),
+            'user_id': str(user.id),
+            'access_expires': access['exp'],  # Add expiration time to response
         }, status=status.HTTP_200_OK)
 
 @api_view(['POST'])

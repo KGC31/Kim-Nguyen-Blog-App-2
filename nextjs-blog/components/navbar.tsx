@@ -9,7 +9,6 @@ export default function navbar (){
 
     useEffect(() => {
         const storedToken = localStorage.getItem('access_token');
-        console.log(storedToken)
         setToken(storedToken);
     }, []);
 

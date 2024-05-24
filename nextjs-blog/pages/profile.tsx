@@ -6,20 +6,18 @@ export default function UserProfile() {
     const [error, setError] = useState(null);
 
     useEffect(() => {
-        const userId = localStorage.getItem('user_id');
-        const token = localStorage.getItem('access_token');
+        const user_id = localStorage.getItem('user_id');
+        const jwt_token = localStorage.getItem('access_token');
 
         const fetchUserData = async () => {
             try {
                 const csrfToken = await getCsrfToken();
-                console.log('CSRF Token:', csrfToken);
-                console.log('JWT Token:', token);
 
-                const response = await fetch(`http://localhost:8000/api/auth/profile/${userId}/`, {
+                const response = await fetch(`http://localhost:8000/api/auth/profile/${user_id}/`, {
                     method: 'POST',
                     credentials: 'include',  // Ensure cookies are included in the request
                     headers: {
-                        'Authorization': `Bearer ${token}`,
+                        'Authorization': `Bearer ${jwt_token}`,
                         'X-CSRFToken': csrfToken,
                         'Content-Type': 'application/json',
                     },
@@ -39,7 +37,7 @@ export default function UserProfile() {
             }
         };
 
-        if (userId && token) {
+        if (user_id && jwt_token) {
             fetchUserData();
         } else {
             setError('User ID or token is missing');
