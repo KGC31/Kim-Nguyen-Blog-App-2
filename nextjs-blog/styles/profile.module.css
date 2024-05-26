@@ -1,0 +1,12 @@
+.container{
+    --size: 80px;
+    --line: hsl(0 0% 100% / 0.13);
+    --thickness: 2px;
+    --offset: 60px;
+    background:
+    linear-gradient(transparent 0 calc(var(--size) - var(--thickness)), var(--line) calc(var(--size) - var(--thickness)) var(--size)) var(--offset) var(--offset) / var(--size) var(--size),
+    linear-gradient(90deg, transparent 0 calc(var(--size) - var(--thickness)), var(--line) calc(var(--size) - var(--thickness)) var(--size)) var(--offset) var(--offset) / var(--size) var(--size);
+    height: 40vh;
+    width: 100vw;
+    z-index: 10;
+}
