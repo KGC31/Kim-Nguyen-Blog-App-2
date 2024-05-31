@@ -19,8 +19,8 @@ from django.urls import path, include
 
 from .views import *
 
+
 urlpatterns = [
-    path('blog/', include('posts.urls')),
-    path('auth/', include('accounts.urls')),
-    path('csrf-token/', get_csrf_token, name='csrf_token'),
+    path('', index, name='index'),
+    path('<str:page_id>/', blog_page, name='page'),
 ]
