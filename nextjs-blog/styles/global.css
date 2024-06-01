@@ -83,3 +83,20 @@ img {
   background-color: aliceblue;
   transform-origin: top;
 }
+
+.blog-wrapper h1{
+  font-size: 4rem;
+  padding-bottom: 3rem;
+  word-wrap: normal;
+}
+
+.blog-wrapper h2{
+  font-size: 3rem;
+  padding-top: 3rem;
+  padding-bottom: 1rem;
+  font-style: italic;
+}
+
+.blog-wrapper p{
+  padding-bottom: 0.5rem;
+}
