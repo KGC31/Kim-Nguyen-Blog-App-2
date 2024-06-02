@@ -2,6 +2,13 @@ import axios from 'axios';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import ReactMarkdown from 'react-markdown';
+// Using ES6 import syntax
+import hljs from 'highlight.js/lib/core';
+import 'highlight.js/styles/base16/apprentice.css';
+import python from 'highlight.js/lib/languages/python';
+
+// Then register the languages you need
+hljs.registerLanguage('python', python);
 
 const BlogPost = () => {
     const router = useRouter();
@@ -11,6 +18,7 @@ const BlogPost = () => {
     const [error, setError] = useState(null);
 
     useEffect(() => {
+        hljs.initHighlighting();
         if (id) {
             const fetchPostContent = async () => {
                 try {
@@ -37,14 +45,16 @@ const BlogPost = () => {
     }
 
     return (
-        <div className='px-24 pt-20 text-xl blog-wrapper'>
-            {post && (
-                <div className='text-white'>
-                    {/* Render additional post content here */}
-                    <ReactMarkdown>{post.markdown}</ReactMarkdown>
-                </div>
-            )}
-        </div>
+        <>
+            <div className='px-40 py-20 text-xl blog-wrapper text-white'>
+                {post && (
+                    <div className='text-2xl'>
+                        {/* Render additional post content here */}
+                        <ReactMarkdown>{post.markdown}</ReactMarkdown>
+                    </div>
+                )}
+            </div>
+        </>
     );
 };
 

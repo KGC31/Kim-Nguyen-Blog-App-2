@@ -53,7 +53,7 @@ const Blog = () => {
     }
 
     return (
-        <div className='mx-24'>
+        <div className='px-40'>
             <div className='h-[50vh] overflow-hidden relative my-5 border border-white rounded-2xl'>
                 <div className=''>
                     <div className="cursor">
@@ -78,7 +78,7 @@ const Blog = () => {
             </div>
             <div className="posts-list my-10 w-100">
                 {posts.map((post) => (
-                    <div key={post.id} className='text-white flex flex-row'>
+                    <div key={post.id} className='text-white flex flex-row my-5'>
                         <svg xmlns="http://www.w3.org/2000/svg" height="3rem" viewBox="0 -960 960 960" width="3rem" fill="#e8eaed"><path d="m256-240-56-56 384-384H240v-80h480v480h-80v-344L256-240Z"/></svg>
                         <div>
                             <Link href={`/blog/${post.id}`}>

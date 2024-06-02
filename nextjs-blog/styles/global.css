@@ -2,6 +2,8 @@
 @tailwind components;
 @tailwind utilities;
 
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap');
+
 @font-face {
   font-family: "Neue Haas Grotesk Display Pro 75 Bold";
   src: url("https://db.onlinewebfonts.com/t/0209bfe594ed24b75ee2aac06529e4f9.eot");
@@ -91,12 +93,30 @@ img {
 }
 
 .blog-wrapper h2{
-  font-size: 3rem;
+  font-size: 2.5rem;
   padding-top: 3rem;
   padding-bottom: 1rem;
   font-style: italic;
 }
 
-.blog-wrapper p{
+.blog-wrapper p, li{
   padding-bottom: 0.5rem;
+  font-family: "Playfair Display", serif;
+}
+
+.blog-wrapper ul {
+  list-style: none; /* Remove default bullets */
+  padding-left: 1rem; /* Add indentation */
+}
+
+.blog-wrapper ul li::before {
+  content: "-"; /* Add dash before list item */
+  margin-right: 0.5rem; /* Add space after dash */
+  color: inherit; /* Use the same color as the text */
+}
+
+.blog-wrapper pre{
+  font-size: 1rem;
+  padding: 2rem;
+
 }
