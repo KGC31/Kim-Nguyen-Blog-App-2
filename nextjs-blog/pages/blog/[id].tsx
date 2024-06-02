@@ -2,12 +2,11 @@ import axios from 'axios';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import ReactMarkdown from 'react-markdown';
-// Using ES6 import syntax
-import hljs from 'highlight.js/lib/core';
+import hljs from 'highlight.js';
 import 'highlight.js/styles/base16/apprentice.css';
 import python from 'highlight.js/lib/languages/python';
 
-// Then register the languages you need
+// Register the languages you need
 hljs.registerLanguage('python', python);
 
 const BlogPost = () => {
@@ -18,12 +17,11 @@ const BlogPost = () => {
     const [error, setError] = useState(null);
 
     useEffect(() => {
-        hljs.initHighlighting();
         if (id) {
             const fetchPostContent = async () => {
                 try {
                     const response = await axios.get(`http://localhost:8000/api/blog/${id}/`);
-                    console.log(response.data)
+                    console.log(response.data);
                     setPost(response.data);
                     setLoading(false);
                 } catch (err) {
@@ -36,6 +34,12 @@ const BlogPost = () => {
         }
     }, [id]);
 
+    useEffect(() => {
+        if (!loading && post) {
+            hljs.highlightAll();
+        }
+    }, [loading, post]);
+
     if (loading) {
         return <div>Loading...</div>;
     }
@@ -45,16 +49,32 @@ const BlogPost = () => {
     }
 
     return (
-        <>
-            <div className='px-40 py-20 text-xl blog-wrapper text-white'>
-                {post && (
-                    <div className='text-2xl'>
-                        {/* Render additional post content here */}
-                        <ReactMarkdown>{post.markdown}</ReactMarkdown>
-                    </div>
-                )}
-            </div>
-        </>
+        <div className='px-40 py-20 text-xl blog-wrapper text-white'>
+            {post && (
+                <div className='text-2xl'>
+                    {/* Render additional post content here */}
+                    <ReactMarkdown
+                        children={post.markdown}
+                        components={{
+                            code({ node, inline, className, children, ...props }) {
+                                const match = /language-(\w+)/.exec(className || '');
+                                return !inline && match ? (
+                                    <pre className={className} {...props}>
+                                        <code className={className}>
+                                            {hljs.highlight(match[1], String(children)).value}
+                                        </code>
+                                    </pre>
+                                ) : (
+                                    <code className={className} {...props}>
+                                        {children}
+                                    </code>
+                                );
+                            }
+                        }}
+                    />
+                </div>
+            )}
+        </div>
     );
 };
 
