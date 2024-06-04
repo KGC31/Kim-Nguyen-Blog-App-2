@@ -1,0 +1,49 @@
+version: '3'
+
+services:
+  db:
+    image: postgres
+    container_name: database
+    volumes:
+      - ./data/db:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_DB=blog
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=Kimcurry17112003
+      - POSTGRES_HOST=localhost
+      - POSTGRES_PORT=5432
+    networks:
+      - net
+
+  frontend:
+    container_name: client
+    build:
+      context: ./nextjs-blog
+      dockerfile: Dockerfile
+    ports:
+      - 3000:3000
+    volumes:
+      - ./client:/app/frontend
+    networks:
+      - net
+
+  backend:
+    container_name:  server
+    build:
+      context: ./server
+    ports:
+      - 8000:8000
+    volumes:
+      - ./server:/app/backend
+    depends_on:
+      - db
+    command: bash -c "sleep 10 && python manage.py makemigrations && python manage.py migrate && python manage.py runserver 0.0.0.0:8000"
+    networks:
+      - net
+
+networks:
+  net:
+    driver: bridge
+
+volumes:
+  react_build:
