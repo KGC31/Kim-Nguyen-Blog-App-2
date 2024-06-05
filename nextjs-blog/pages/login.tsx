@@ -1,7 +1,7 @@
 import { FormEvent, useState } from 'react';
 import { useRouter } from 'next/router';
+import { userLogin } from '../utils/login';
 import styles from '../styles/login.module.css';
-
 export default function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -18,37 +18,9 @@ export default function Login() {
     };
 
     try {
-      const response = await fetch('http://localhost:8000/api/auth/login/', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(formData),
-      });
-
-      if (!response.ok) {
-        throw new Error('Login failed');
-      }
-
-      const data = await response.json();
+      await userLogin(formData);
       
-      // Store the tokens and user ID in localStorage
-      localStorage.setItem('access_token', data.access_token);
-      localStorage.setItem('refresh_token', data.refresh_token);
-      localStorage.setItem('user_id', data.user_id);
-
-      // Calculate the time until the access token expires
-      const expiresIn = data.access_expires * 1000 - Date.now(); // Convert from seconds to milliseconds
-
-      // Set a timeout to clear the access token after it expires
-      setTimeout(() => {
-        localStorage.removeItem('access_token');
-        localStorage.removeItem('user_id');
-        alert('Your session has expired. Please log in again.');
-        router.push('/login');  // Redirect to login page after token expiration
-      }, expiresIn);
-
-      // Redirect to the homepage or another protected route
+      // Redirect to the homepage
       router.push('/');
     } catch (error) {
       setError('Invalid email or password');

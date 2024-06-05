@@ -14,7 +14,7 @@ const BlogPost = () => {
     const { id } = router.query;
     const [post, setPost] = useState(null);
     const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(null);
+    const [error, setError] = useState<Error | null>(null);
 
     useEffect(() => {
         if (id) {
