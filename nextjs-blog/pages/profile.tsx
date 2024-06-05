@@ -1,4 +1,4 @@
-// pages/profile.tsx
+'use client'
 import { useState, useEffect } from 'react';
 import { getUserProfile } from '../utils/profile';
 import styles from '../styles/profile.module.css';
@@ -13,9 +13,12 @@ interface UserData {
 export default function UserProfile() {
     const [userData, setUserData] = useState<UserData | null>(null);
     const [loading, setLoading] = useState<boolean>(true);
-    const userId = sessionStorage.getItem("userID");
-
+    let userId;
+    
     useEffect(() => {
+        if (typeof window !== 'undefined') {
+            userId = sessionStorage.getItem("userID");
+        }
         const fetchUserData = async () => {
             if (userId) {
                 const data = await getUserProfile(userId);
