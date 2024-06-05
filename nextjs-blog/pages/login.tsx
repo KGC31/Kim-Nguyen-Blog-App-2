@@ -31,13 +31,13 @@ export default function Login() {
     <div className={styles.container}>
       <section className="flex flex-wrap content-center justify-center h-screen w-screen">
         <div className={styles.ring}>
-          <i style={{ '--clr' : '#8c38ff' } as any}></i>
-          <i style={{ '--clr' : '#3e2fff' } as any}></i>
-          <i style={{ '--clr' : 'rgb(56 189 248)' } as any}></i>
+          <i></i>
+          <i></i>
+          <i></i>
 
           <form onSubmit={onSubmit} className={styles.login}>
             <h2>Login</h2>
-            {error && <p className={styles.error}>{error}</p>}
+            {error && <p className='text-red mt-2'>{error}</p>}
             <div className={styles.inputBx}>
               <input
                 type="email"
@@ -58,12 +58,8 @@ export default function Login() {
                 required
               />
             </div>
-            <div className={styles.inputBx}>
-              <input type="submit" value="Sign in" />
-            </div>
-            <div className={styles.link}>
-              <a href="/">Forget Password</a>
-              <a href="/register">Signup</a>
+            <div className='relative w-full'>
+              <input className='relative w-full px-3 py-5 bg-white border-2 border-white rounded-full text-xl text-black hover:bg-transparent hover:text-white cursor-pointer' type="submit" value="Sign in" />
             </div>
           </form>
         </div>

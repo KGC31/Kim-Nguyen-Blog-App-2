@@ -35,8 +35,8 @@
   animation: animate2 10s linear infinite;
 }
 .ring:hover i {
-  border: 4px solid var(--clr);
-  filter: drop-shadow(0 0 20px var(--clr));
+  border: 4px solid white;
+  filter: drop-shadow(0 0 20px white);
 }
 @keyframes animate {
   0% {
@@ -85,30 +85,8 @@
   outline: none;
 }
 
-.login .inputBx input[type="submit"] {
-  width: 100%;
-  background: #0078ff;
-  background: linear-gradient(45deg, #8c38ff, #3e2fff);
-  border: none;
-  cursor: pointer;
-}
-
 .login .inputBx input::placeholder {
   color: rgba(255, 255, 255, 0.75);
-}
-
-.login .links {
-  position: relative;
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0 20px;
-}
-
-.login .links a {
-  color: #fff;
-  text-decoration: none;
 }
 
 .error {
