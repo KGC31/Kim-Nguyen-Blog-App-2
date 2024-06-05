@@ -33,7 +33,7 @@ export default function Hero() {
             onUpdate: self => {
                 // Update particle opacity based on scroll position
                 const opacity = 1 - self.progress;
-                const particles = document.querySelector('#tsparticles');
+                const particles = document.querySelector('#tsparticles') as HTMLElement | null;
                 if (particles) {
                     particles.style.opacity = opacity.toString();
                 }

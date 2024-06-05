@@ -12,7 +12,7 @@ hljs.registerLanguage('python', python);
 const BlogPost = () => {
     const router = useRouter();
     const { id } = router.query;
-    const [post, setPost] = useState(null);
+    const [post, setPost] = useState<any>(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<Error | null>(null);
 
@@ -56,9 +56,9 @@ const BlogPost = () => {
                     <ReactMarkdown
                         children={post.markdown}
                         components={{
-                            code({ node, inline, className, children, ...props }) {
+                            code({ node, className, children, ...props }: { node: any, className: string, children: string, inline?: boolean }) {
                                 const match = /language-(\w+)/.exec(className || '');
-                                return !inline && match ? (
+                                return !props.inline && match ? (
                                     <pre className={className} {...props}>
                                         <code className={className}>
                                             {hljs.highlight(match[1], String(children)).value}

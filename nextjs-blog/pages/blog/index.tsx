@@ -3,8 +3,20 @@ import Link from 'next/link';
 import { getPosts } from '../../utils/posts';
 import gsap from 'gsap';
 
+interface Post {
+    id: string;
+    properties: {
+        Name: {
+            title: { plain_text: string }[];
+        };
+        Tags: {
+            multi_select: { name: string }[];
+        };
+    };
+}
+
 const Blog = () => {
-    const [posts, setPosts] = useState([]);
+    const [posts, setPosts] = useState<Post[]>([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<Error | null>(null);
 
@@ -66,8 +78,8 @@ const Blog = () => {
                     <input type="text" className='bg-transparent outline-none text-white w-96 h-8' />
                     <button type='submit'>
                         <svg id="Search" width="24" height="24" viewBox="0 0 26 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <circle cx="11.2481" cy="10.7887" r="8.03854" stroke="white" stroke-width="1.5" stroke-linecap="square"/>
-                            <path d="M16.7369 16.7083L21.2904 21.2499" stroke="white" stroke-width="1.5" stroke-linecap="square"/>
+                            <circle cx="11.2481" cy="10.7887" r="8.03854" stroke="white" strokeWidth="1.5" strokeLinecap="square"/>
+                            <path d="M16.7369 16.7083L21.2904 21.2499" stroke="white" strokeWidth="1.5" strokeLinecap="square"/>
                         </svg>
                     </button>
                 </form>
@@ -83,8 +95,8 @@ const Blog = () => {
                                 </h1>
                             </Link>
                             <div className='flex flex-row gap-4'>
-                                {post.properties.Tags.multi_select.map((tag) =>(
-                                    <p className='px-3 border border-white rounded-xl cursor-pointer'>{tag.name}</p>
+                                {post.properties.Tags.multi_select.map((tag, index) =>(
+                                    <p key={index} className='px-3 border border-white rounded-xl cursor-pointer'>{tag.name}</p>
                                 ))}
                             </div>
                         </div>
