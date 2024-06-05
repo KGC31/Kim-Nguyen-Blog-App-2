@@ -31,9 +31,10 @@ export default function Login() {
     <div className={styles.container}>
       <section className="flex flex-wrap content-center justify-center h-screen w-screen">
         <div className={styles.ring}>
-          <i style={{ '--clr': '#8c38ff' }}></i>
-          <i style={{ '--clr': '#3e2fff' }}></i>
-          <i style={{ '--clr': 'rgb(56 189 248)' }}></i>
+          <i style={{ '--clr' : '#8c38ff' } as any}></i>
+          <i style={{ '--clr' : '#3e2fff' } as any}></i>
+          <i style={{ '--clr' : 'rgb(56 189 248)' } as any}></i>
+
           <form onSubmit={onSubmit} className={styles.login}>
             <h2>Login</h2>
             {error && <p className={styles.error}>{error}</p>}
