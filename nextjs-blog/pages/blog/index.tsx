@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { getPosts } from '../../utils/posts';
 import gsap from 'gsap';
-import styles from '../../styles/blog.module.css';
 
 const Blog = () => {
     const [posts, setPosts] = useState([]);
@@ -50,30 +49,32 @@ const Blog = () => {
     }
 
     return (
-        <div className={styles.container}>
-            <div className={styles.header}>
-                <div className={styles.cursor}>
-                    <div className={`${styles.text} text absolute text-8xl font-medium uppercase text-center text-[#111]`} style={{ WebkitTextStroke: '1px white', textStroke: '1px white' }}>Kim Nguyen Blog</div>
-                    <div className={`${styles.text} text absolute text-8xl font-medium uppercase text-center text-[#111]`} style={{ WebkitTextStroke: '1px white', textStroke: '1px white' }}>Kim Nguyen Blog</div>
-                    <div className={`${styles.text} text absolute text-8xl font-medium uppercase text-center text-[#111]`} style={{ WebkitTextStroke: '1px white', textStroke: '1px white' }}>Kim Nguyen Blog</div>
-                    <div className={`${styles.text} text absolute text-8xl font-medium uppercase text-center text-[#111]`} style={{ WebkitTextStroke: '1px white', textStroke: '1px white' }}>Kim Nguyen Blog</div>
-                    <div className={`${styles.text} text absolute text-8xl font-medium uppercase text-center text-white`}>Kim Nguyen Blog</div>
+        <div className='px-40'>
+            <div className='h-[50vh] overflow-hidden relative my-5 border border-white rounded-2xl'>
+                <div className=''>
+                    <div className="cursor">
+                        <div className="text absolute text-8xl font-medium uppercase text-center text-[#111]" style={{ WebkitTextStroke: '1px white', textStroke: '1px white' }}>Kim Nguyen Blog</div>
+                        <div className="text absolute text-8xl font-medium uppercase text-center text-[#111]" style={{ WebkitTextStroke: '1px white', textStroke: '1px white' }}>Kim Nguyen Blog</div>
+                        <div className="text absolute text-8xl font-medium uppercase text-center text-[#111]" style={{ WebkitTextStroke: '1px white', textStroke: '1px white' }}>Kim Nguyen Blog</div>
+                        <div className="text absolute text-8xl font-medium uppercase text-center text-[#111]" style={{ WebkitTextStroke: '1px white', textStroke: '1px white' }}>Kim Nguyen Blog</div>
+                        <div className="text absolute text-8xl font-medium uppercase text-center text-white">Kim Nguyen Blog</div>
+                    </div>
                 </div>
             </div>
-            <div className={styles.search}>
+            <div className='grid justify-items-center w-100'>
                 <form action="" className='flex flex-row border border-white rounded-xl p-1 items-center'>
                     <input type="text" className='bg-transparent outline-none text-white w-96 h-8' />
                     <button type='submit'>
                         <svg id="Search" width="24" height="24" viewBox="0 0 26 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <circle cx="11.2481" cy="10.7887" r="8.03854" stroke="white" strokeWidth="1.5" strokeLinecap="square"/>
-                            <path d="M16.7369 16.7083L21.2904 21.2499" stroke="white" strokeWidth="1.5" strokeLinecap="square"/>
+                            <circle cx="11.2481" cy="10.7887" r="8.03854" stroke="white" stroke-width="1.5" stroke-linecap="square"/>
+                            <path d="M16.7369 16.7083L21.2904 21.2499" stroke="white" stroke-width="1.5" stroke-linecap="square"/>
                         </svg>
                     </button>
                 </form>
             </div>
-            <div className={styles.postsList}>
+            <div className="posts-list my-10 w-100">
                 {posts.map((post) => (
-                    <div key={post.id} className={`${styles.post} text-white flex flex-row my-5`}>
+                    <div key={post.id} className='text-white flex flex-row my-5'>
                         <svg xmlns="http://www.w3.org/2000/svg" height="3rem" viewBox="0 -960 960 960" width="3rem" fill="#e8eaed"><path d="m256-240-56-56 384-384H240v-80h480v480h-80v-344L256-240Z"/></svg>
                         <div>
                             <Link href={`/blog/${post.id}`}>
