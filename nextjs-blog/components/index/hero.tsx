@@ -1,11 +1,15 @@
 import { useCallback, useEffect, useRef } from "react";
 import Particles from "react-tsparticles";
 import { loadSlim } from "tsparticles-slim";
+import { ScrollTrigger } from "gsap/dist/ScrollTrigger"; // Import ScrollTrigger from GSAP
 import type { Container, Engine } from "tsparticles-engine";
 import { shuffle } from "../../scripts/shuffle";
 import styles from '../../styles/index.module.css';
+import gsap from 'gsap'; // Import gsap
 
 export default function Hero() {
+    const particlesRef = useRef<Container | null>(null);
+
     const particlesInit = useCallback(async (engine: Engine) => {
         console.log(engine);
         await loadSlim(engine);
@@ -13,14 +17,40 @@ export default function Hero() {
 
     const particlesLoaded = useCallback(async (container: Container | undefined) => {
         console.log(container);
+        particlesRef.current = container || null;
     }, []);
 
     const shuffleRef = useRef<HTMLHeadingElement>(null);
 
     useEffect(() => {
+        // Initialize GSAP ScrollTrigger
+        gsap.registerPlugin(ScrollTrigger);
+
+        ScrollTrigger.create({
+            trigger: '#tsparticles', // ID of the Particles component
+            start: 'top top', // Start the animation when the top of the element hits the top of the viewport
+            end: 'bottom top', // End the animation when the bottom of the element hits the bottom of the viewport
+            onUpdate: self => {
+                // Update particle opacity based on scroll position
+                const opacity = 1 - self.progress;
+                const particles = document.querySelector('#tsparticles');
+                if (particles) {
+                    particles.style.opacity = opacity.toString();
+                }
+            },
+        });
+
         if (shuffleRef.current) {
             shuffle(shuffleRef.current);
         }
+
+        // Cleanup function to terminate particles on unmount
+        return () => {
+            if (particlesRef.current) {
+                particlesRef.current.destroy();
+                particlesRef.current = null;
+            }
+        };
     }, []);
 
     return (
@@ -101,8 +131,8 @@ export default function Hero() {
                 }}
             />
             <div className="grid justify-center place-content-center w-screen h-screen z-10 text-center">
-                <h1 ref={shuffleRef} className={`shuffle ${styles.hero_title}`}>KIM NGUYEN</h1>
+                <h1 ref={shuffleRef} className={`shuffle text-white text-4xl sm:text-6xl z-10 ${styles.hero_title}`}>KIM NGUYEN</h1>
             </div>
         </div>
-    )
+    );
 }

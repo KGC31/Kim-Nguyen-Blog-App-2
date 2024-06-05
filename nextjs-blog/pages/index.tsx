@@ -4,6 +4,8 @@ import styles from '../styles/index.module.css'
 import About from '../components/index/about'
 import Hero from '../components/index/hero'
 import Contact from '../components/index/contact'
+import Projects from '../components/index/projects'
+import Skills from '../components/index/skills'
 
 export default function Home() {
   return (
@@ -11,9 +13,13 @@ export default function Home() {
         <section>
             <Hero/>
         </section>
-        <section className="h-screen flex items-center justify-center">
+        <section className='relative z-10'>
             <About />
         </section>
+        <section>
+          <Skills></Skills>
+        </section>
+        <Projects></Projects>
         <section className="h-screen">
             <Contact />
         </section>

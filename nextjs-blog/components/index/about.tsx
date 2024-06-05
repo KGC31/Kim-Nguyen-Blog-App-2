@@ -1,86 +1,59 @@
-import { useEffect, useRef } from "react";
-import createGlobe from "cobe";
+import { useEffect, useRef } from 'react';
+import gsap from 'gsap';
+
+import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
+
+gsap.registerPlugin(ScrollTrigger);
 
 const About = () => {
-    const canvasRef = useRef<HTMLCanvasElement>(null);
+    const [lettersRef, setlettersRef] = useArrayRef();
+    const triggerRef = useRef(null)
+
+
+    function useArrayRef() {
+        const lettersRef = useRef([]);
+        lettersRef.current = [];
+        return [lettersRef, (ref) => ref && lettersRef.current.push(ref)];
+    }
+
+    gsap.registerPlugin(ScrollTrigger);
+    const text = "Hi my name is Kim Nguyen, a dedicated fresher software engineer of Ho Chi Minh University of Science, working in the fields of website development and computer vision."
 
     useEffect(() => {
-        let phi = 0;
-        let isMouseDown = false;
-        let lastMouseX = 0;
+        const anim = gsap.to(
+            lettersRef.current,
+            {
+                scrollTrigger: {
+                    trigger: triggerRef.current,
+                    scrub: true,
+                    start: "top 80%",
+                    end: "bottom 80%"
 
-        const handleMouseMove = (event: MouseEvent) => {
-            if (isMouseDown) {
-                const deltaX = event.clientX - lastMouseX;
-                phi += deltaX * 0.01;
-                lastMouseX = event.clientX;
+                },
+                color: "#FFF",
+                duration: 5,
+                stagger: 1,
             }
-        };
-
-        const handleMouseDown = (event: MouseEvent) => {
-            isMouseDown = true;
-            lastMouseX = event.clientX;
-        };
-
-        const handleMouseUp = () => {
-            isMouseDown = false;
-        };
-
-        if (canvasRef.current) {
-            const globe = createGlobe(canvasRef.current, {
-                devicePixelRatio: 2,
-                width: 600 * 2,
-                height: 600 * 2,
-                phi: 0,
-                theta: 0,
-                dark: 1,
-                diffuse: 1.2,
-                mapSamples: 16000,
-                mapBrightness: 6,
-                baseColor: [0.3, 0.3, 0.3],
-                markerColor: [0.1, 0.8, 1],
-                glowColor: [1, 1, 1],
-                markers: [
-                    // longitude latitude
-                    { location: [37.7595, -122.4367], size: 0.03 },
-                    { location: [40.7128, -74.006], size: 0.1 }
-                ],
-                onRender: (state: any) => {
-                    // Called on every animation frame.
-                    state.phi = phi;
-                    phi += 0.01;
-                }
-            });
-
-            // Add event listeners for mouse interactions
-            canvasRef.current.addEventListener("mousemove", handleMouseMove);
-            canvasRef.current.addEventListener("mousedown", handleMouseDown);
-            window.addEventListener("mouseup", handleMouseUp);
-
-            return () => {
-                globe.destroy();
-                // Clean up event listeners
-                if (canvasRef.current) {
-                    canvasRef.current.removeEventListener("mousemove", handleMouseMove);
-                    canvasRef.current.removeEventListener("mousedown", handleMouseDown);
-                }
-                window.removeEventListener("mouseup", handleMouseUp);
-            };
-        }
+        );
+        return (() => {
+            anim.kill()
+        })
     }, []);
-
+    
     return (
-        <div className="z-10 grid grid-cols-2 w-screen">
-            <div className="">
-                <canvas
-                    ref={canvasRef}
-                    style={{ width: 600, height: 600, maxWidth: "100%" }}
-                    className="cursor-grab"
-                />
+        <div className='my-20'>
+            <div className="reveal">
+                <div ref={triggerRef} className='z-10 w-screen flex justify-end px-10'>
+                    <p className="text-[#2A2A2A] text-8xl w-2/3">
+                        {text.split("").map((letter, index) => (
+                            <span className="reveal-text" key={index} ref={setlettersRef}>
+                                {letter}
+                            </span>
+                        ))}
+                    </p>
+                </div>
             </div>
-            <div className="text-white">
-                <p>Hi my name is Kim</p>
-            </div>
+            <div className="spacing"></div>
         </div>
     );
 };
