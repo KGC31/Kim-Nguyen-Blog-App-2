@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { getPosts } from '../../utils/posts';
 import gsap from 'gsap';
-import styles from '../styles/blog.module.css';
+import styles from '../../styles/blog.module.css';
 
 const Blog = () => {
     const [posts, setPosts] = useState([]);
