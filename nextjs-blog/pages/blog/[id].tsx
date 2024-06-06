@@ -1,10 +1,10 @@
-import axios from 'axios';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import ReactMarkdown from 'react-markdown';
 import hljs from 'highlight.js';
 import 'highlight.js/styles/base16/apprentice.css';
 import python from 'highlight.js/lib/languages/python';
+import { getPost } from './post';  // Adjust the path as needed
 
 // Register the languages you need
 hljs.registerLanguage('python', python);
@@ -20,9 +20,8 @@ const BlogPost = () => {
         if (id) {
             const fetchPostContent = async () => {
                 try {
-                    const response = await axios.get(`http://localhost:8000/api/blog/${id}/`);
-                    console.log(response.data);
-                    setPost(response.data);
+                    const data = await getPost(id);
+                    setPost(data);
                     setLoading(false);
                 } catch (err) {
                     setError(err);
@@ -56,7 +55,7 @@ const BlogPost = () => {
                     <ReactMarkdown
                         children={post.markdown}
                         components={{
-                            code({ node, className, children, ...props }: { node: any, className: string, children: string, inline?: boolean }) {
+                            code({ node, className, children, ...props }) {
                                 const match = /language-(\w+)/.exec(className || '');
                                 return !props.inline && match ? (
                                     <pre className={className} {...props}>
