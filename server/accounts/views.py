@@ -1,5 +1,5 @@
 # accounts/views.py
-from rest_framework import status
+from rest_framework import status, permissions
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework.decorators import api_view
@@ -10,14 +10,26 @@ from .serializers import UserSerializer, CustomTokenObtainPairSerializer
 from rest_framework_simplejwt.views import TokenObtainPairView
 from rest_framework_simplejwt.tokens import RefreshToken, AccessToken
 from .models import User
+from datetime import timedelta
 
+@permission_classes(permissions.AllowAny,)
 class SignupAPIView(APIView):
     def post(self, request):
+        data = self.request.data
         serializer = UserSerializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+        username = data['username']
+        password = data['password']
+        firstName = data['firstName']
+        lastName = data['lastName']
+        re_password = data['re_password']
+
+        if password != re_password:
+            return Response({'error': 'Password does not match!'}, status=status.HTTP_400_BAD_REQUEST)
+        else: 
+            return 
+
+
     
 class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):
     @classmethod
@@ -41,6 +53,9 @@ class CustomTokenObtainPairView(TokenObtainPairView):
         user = serializer.user
         refresh = RefreshToken.for_user(user)
         access = refresh.access_token
+
+        # Customize the expiration time of the access token
+        access.set_exp(lifetime=timedelta(minutes=30))  # Set expiration time to 30 minutes
 
         return Response({
             'refresh_token': str(refresh),

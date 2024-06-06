@@ -44,28 +44,55 @@ def get_notion_headers():
         'Notion-Version': '2022-06-28'
     }
 
-def block_to_markdown(block):
+def block_to_markdown(block, indent=0):
     """
     Convert a Notion block to Markdown.
     """
     block_type = block['type']
-    
+    indent_space = '  ' * indent  # Two spaces for each level of indentation
+
     if block_type == 'heading_1':
-        return f"# {block['heading_1']['rich_text'][0]['plain_text']}\n\n"
+        return f"{indent_space}# {block['heading_1']['rich_text'][0]['plain_text']}\n\n"
     elif block_type == 'heading_2':
-        return f"## {block['heading_2']['rich_text'][0]['plain_text']}\n\n"
+        return f"{indent_space}## {block['heading_2']['rich_text'][0]['plain_text']}\n\n"
     elif block_type == 'heading_3':
-        return f"### {block['heading_3']['rich_text'][0]['plain_text']}\n\n"
+        return f"{indent_space}### {block['heading_3']['rich_text'][0]['plain_text']}\n\n"
     elif block_type == 'paragraph':
-        return f"{block['paragraph']['rich_text'][0]['plain_text']}\n\n"
+        return f"{indent_space}{block['paragraph']['rich_text'][0]['plain_text']}\n\n"
     elif block_type == 'bulleted_list_item':
-        return f"- {block['bulleted_list_item']['rich_text'][0]['plain_text']}\n\n"
+        markdown = f"{indent_space}- {block['bulleted_list_item']['rich_text'][0]['plain_text']}\n"
+        if block['has_children']:
+            child_blocks = fetch_child_blocks(block['id'])
+            for child in child_blocks:
+                markdown += block_to_markdown(child, indent + 1)
+        return markdown
     elif block_type == 'numbered_list_item':
-        return f"1. {block['numbered_list_item']['rich_text'][0]['plain_text']}\n\n"
+        markdown = f"{indent_space}1. {block['numbered_list_item']['rich_text'][0]['plain_text']}\n"
+        if block['has_children']:
+            child_blocks = fetch_child_blocks(block['id'])
+            for child in child_blocks:
+                markdown += block_to_markdown(child, indent + 1)
+        return markdown
+    elif block_type == 'code':
+        return f"```\n{block['code']['rich_text'][0]['plain_text']}\n```\n\n"
     elif block_type == 'image':
-        return f"![{block['image']['caption']}]({block['image']['file']['url']})\n\n"
+        return f"{indent_space}![{block['image']['caption']}]({block['image']['file']['url']})\n\n"
     # Add more block types as needed
     return ""
+
+def fetch_child_blocks(block_id):
+    """
+    Fetch child blocks for a given block_id.
+    """
+    try:
+        headers = get_notion_headers()
+        url = urljoin('https://api.notion.com/v1/', f"blocks/{block_id}/children?page_size=100")
+        response = requests.get(url, headers=headers)
+        response.raise_for_status()
+        return response.json()['results']
+    except Exception as e:
+        logging.error(f"Error fetching child blocks: {str(e)}")
+        return []
 
 def blog_page(request, page_id):
     try:
@@ -83,7 +110,7 @@ def blog_page(request, page_id):
         for block in page_content['results']:
             markdown_content += block_to_markdown(block)
 
-        return JsonResponse({'markdown': markdown_content}, status=200)
+        return JsonResponse({'markdown': markdown_content, 'json': page_content} , status=200)
     except Exception as e:
         logging.error(f"Error occurred: {str(e)}")
         return JsonResponse({'error': str(e)}, status=500)
