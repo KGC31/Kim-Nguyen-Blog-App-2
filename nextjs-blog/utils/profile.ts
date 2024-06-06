@@ -15,7 +15,7 @@ export async function getUserProfile(userID: string): Promise<UserData | null> {
         const jwtToken: string | null = sessionStorage.getItem("access_token");
 
         if (csrfToken && jwtToken) {
-            const response = await axios.get(`http://localhost:8000/api/auth/profile/${userID}/`, {
+            const response = await axios.get(`https://kim-nguyen-blog-app-server.vercel.app/api/auth/profile/${userID}/`, {
                 headers: {
                     'Authorization': `Bearer ${jwtToken}`,
                     'X-CSRFToken': csrfToken,

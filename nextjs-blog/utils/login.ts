@@ -2,7 +2,7 @@ import axios from 'axios';
 
 export async function userLogin(loginData) {
     try {
-        const response = await axios.post('http://localhost:8000/api/auth/login/', loginData, {
+        const response = await axios.post('https://kim-nguyen-blog-app-server.vercel.app/api/auth/login', loginData, {
             headers: {
                 'Content-Type': 'application/json',
             },

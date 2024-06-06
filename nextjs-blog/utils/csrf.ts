@@ -2,7 +2,7 @@ import axios from 'axios';
 
 export async function getCsrfToken() {
     try {
-        const response = await axios.get('https://kim-nguyen-blog-app-server-26dt91tgs-kgc31s-projects.vercel.app/api/csrf-token/', {
+        const response = await axios.get('https://kim-nguyen-blog-app-server.vercel.app/api/csrf-token', {
             withCredentials: true,  // Ensure cookies are included in the request
             headers: {
                 'Content-Type': 'application/json',
