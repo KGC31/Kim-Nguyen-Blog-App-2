@@ -2,8 +2,9 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
+import {motion, AnimatePresence} from "framer-motion";
 
-export default function Navbar() {
+const DesktopNavbar = () => {
     const [token, setToken] = useState<string | null>(null);
     const router = useRouter();
 
@@ -79,3 +80,122 @@ export default function Navbar() {
         </>
     );
 }
+
+
+const MobileNavbar = () => {
+    const [open, setOpen] = useState(false)
+  
+    const isOpen = () => {
+      setOpen(true)
+    }
+  
+    const closeMenu = () => {
+      setOpen(false)
+    }
+  
+    // Let's start animation
+    const item = {
+      exit: {
+        opacity: 0,
+        height: 0,
+        transition: {
+          ease: 'easeInOut',
+          duration: 0.3,
+          delay: 1.2,
+        },
+      },
+    }
+  
+    return (
+      <div className="fixed h-screen w-full z-50">
+        <header>
+          <div className="fixed top-5 right-5 flex items-center justify-center w-14 h-14 cursor-pointer" onClick={isOpen}>
+            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" className="bi bi-list" viewBox="0 0 16 16">
+              <path fill='#FFF' fillRule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5"/>
+            </svg>
+          </div>
+        </header>
+        <AnimatePresence>
+          {open && (
+            <motion.div className="absolute inset-0 flex flex-col items-center justify-center w-full h-screen bg-[#111] text-white"
+              variants={item}
+              initial={{ height: 0, opacity: 0 }}
+              animate={{ height: '100vh', opacity: 1 }}
+              transition={{ duration: 0.5 }}
+              exit="exit"
+            >
+              <div className="flex items-center justify-center w-14 h-14 bg-white text-[#111] rounded-full absolute top-5 right-5 z-50 cursor-pointer" onClick={closeMenu}>
+                X
+              </div>
+              <motion.a href="/"
+                className="inline-flex items-center justify-center h-20 text-2xl uppercase"
+                initial={{ y: 20, opacity: 0 }}
+                animate={{ y: 0, opacity: 1 }}
+                transition={{ delay: 0.8 }}
+                exit={{
+                  opacity: 0,
+                  y: 20,
+                  transition: {
+                    ease: 'easeInOut',
+                    delay: 1,
+                  },
+                }}
+              >
+                Home
+              </motion.a>
+              <motion.a href="/blog"
+                className="inline-flex items-center justify-center h-20 text-2xl uppercase mt-4"
+                initial={{ y: 20, opacity: 0 }}
+                animate={{ y: 0, opacity: 1 }}
+                transition={{ delay: 0.7 }}
+                exit={{
+                  opacity: 0,
+                  y: 20,
+                  transition: {
+                    ease: 'easeInOut',
+                    delay: 0.8,
+                  },
+                }}
+              >
+                Blog
+              </motion.a>
+              <motion.a href="/login"
+                className="inline-flex items-center justify-center h-20 text-2xl uppercase mt-4"
+                initial={{ y: 20, opacity: 0 }}
+                animate={{ y: 0, opacity: 1 }}
+                transition={{ delay: 0.5 }}
+                exit={{
+                  opacity: 0,
+                  y: 20,
+                  transition: {
+                    ease: 'easeInOut',
+                    delay: 0.4,
+                  },
+                }}
+              >
+                Login
+              </motion.a>
+              <motion.a href="Sign up"
+                className="inline-flex items-center justify-center h-20 text-2xl uppercase mt-4"
+                initial={{ y: 20, opacity: 0 }}
+                animate={{ y: 0, opacity: 1 }}
+                transition={{ delay: 0.4 }}
+                exit={{
+                  opacity: 0,
+                  y: 20,
+                  transition: {
+                    ease: 'easeInOut',
+                    delay: 0.2,
+                  },
+                }}
+              >
+                Sign up
+              </motion.a>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </div>
+    )
+}
+
+export { DesktopNavbar, MobileNavbar }
