@@ -61,7 +61,7 @@ const Blog = () => {
     }
 
     return (
-        <div className='px-40'>
+        <div className='px-40 py-5'>
             <div className='h-[50vh] overflow-hidden relative my-5 border border-white rounded-2xl'>
                 <div className=''>
                     <div className="cursor">
@@ -94,9 +94,9 @@ const Blog = () => {
                                     {post.properties.Name.title[0].plain_text}
                                 </h1>
                             </Link>
-                            <div className='flex flex-row gap-4'>
+                            <div className='flex flex-row gap-4 my-3'>
                                 {post.properties.Tags.multi_select.map((tag, index) =>(
-                                    <p key={index} className='px-3 border border-white rounded-xl cursor-pointer'>{tag.name}</p>
+                                    <p key={index} className='px-4 border border-white rounded-xl cursor-pointer'>{tag.name}</p>
                                 ))}
                             </div>
                         </div>
