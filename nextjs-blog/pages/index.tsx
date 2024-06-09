@@ -14,7 +14,7 @@ export default function Home() {
         <section className='relative z-10'>
             <About />
         </section>
-        <section>
+        <section className='my-60 z-10'>
           <Skills></Skills>
         </section>
         <Projects></Projects>

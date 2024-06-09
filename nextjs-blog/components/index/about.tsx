@@ -42,8 +42,8 @@ const About = () => {
     return (
         <div className='my-20'>
             <div className="reveal">
-                <div ref={triggerRef} className='z-10 w-screen flex justify-end px-10'>
-                    <p className="text-[#2A2A2A] text-8xl w-2/3">
+                <div ref={triggerRef} className='z-10 w-screen flex justify-end px-10 uppercase font-bold'>
+                    <p className="text-[#2A2A2A] md:text-8xl text-5xl text-justify w-2/3">
                         {text.split("").map((letter, index) => (
                             <span className="reveal-text" key={index} ref={setlettersRef}>
                                 {letter}

@@ -14,12 +14,13 @@
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
     "cobe": "^0.6.3",
-    "framer-motion": "^11.1.9",
+    "framer-motion": "^11.2.10",
     "gsap": "^3.12.5",
     "highlight.js": "^11.9.0",
     "html2canvas": "^1.4.1",
     "jspdf": "^2.5.1",
     "ldrs": "^1.0.1",
+    "mini-svg-data-uri": "^1.4.4",
     "next": "latest",
     "react": "18.2.0",
     "react-device-detect": "^2.2.3",
@@ -36,6 +37,7 @@
     "node": ">=18"
   },
   "devDependencies": {
+    "@types/matter-js": "^0.19.6",
     "@types/node": "20.12.10",
     "@types/react": "18.3.1",
     "autoprefixer": "^10.4.19",
