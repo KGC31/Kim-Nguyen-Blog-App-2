@@ -1,4 +1,4 @@
-# Kim Nguyen Blog (version 2)
+# Kim Nguyen Blog (version 2) (Unfinished)
 This version is an upgrade to the previous blog app that i created. It is a chance for me to implement my ReactJS, Django and Postgres skills, also to learn new framework that is NextJS. The website is quite like a project where i can show my skill, and it is also a note for the knowledge i gain on the way of becoming a developer, software engineer and a reseracher.
 ## Prerequisites
 
