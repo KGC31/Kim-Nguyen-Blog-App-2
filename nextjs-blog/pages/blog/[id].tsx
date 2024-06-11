@@ -1,3 +1,4 @@
+'use client'
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import ReactMarkdown from 'react-markdown';
@@ -21,8 +22,7 @@ const BlogPost = () => {
             const fetchPostContent = async () => {
                 try {
                     const data = await getPost(id as string);
-
-                    console.log(data.json)
+                    console.log(data.markdown);
                     setPost(data);
                     setLoading(false);
                 } catch (err) {
@@ -53,23 +53,30 @@ const BlogPost = () => {
         <div className='px-10 md:px-40 py-20 text-base md:text-xl blog-wrapper text-white'>
             {post && (
                 <div className='md:text-2xl'>
-                    {/* Render additional post content here */}
                     <ReactMarkdown
                         children={post.markdown}
                         components={{
-                            code({ node, className, children, ...props }: { node: any, className: string, children: string, inline?: boolean }) {
+                            code({ node, inline, className, children, ...props }: { node: any, inline: boolean, className: string, children: string }) {
                                 const match = /language-(\w+)/.exec(className || '');
-                                return !props.inline && match ? (
-                                    <pre className={`${className} text-sm`} {...props}>
-                                        <code className={className}>
-                                            {hljs.highlight(match[1], String(children)).value}
-                                        </code>
-                                    </pre>
-                                ) : (
-                                    <code className={className} {...props}>
-                                        {children}
-                                    </code>
-                                );
+
+                                if (inline) {
+                                    return <code className={className} {...props}>{children}</code>;
+                                } else if (match) {
+                                    const language = match[1];
+                                    const highlighted = hljs.highlight(language, String(children)).value;
+                                    return (
+                                        <pre className={`${className} text-sm`} {...props}>
+                                            <code className={className} dangerouslySetInnerHTML={{ __html: highlighted }} />
+                                        </pre>
+                                    );
+                                } else {
+                                    const highlighted = hljs.highlightAuto(String(children)).value;
+                                    return (
+                                        <pre className="text-sm" {...props}>
+                                            <code className="hljs" dangerouslySetInnerHTML={{ __html: highlighted }} />
+                                        </pre>
+                                    );
+                                }
                             }
                         }}
                     />

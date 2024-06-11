@@ -44,6 +44,28 @@ def get_notion_headers():
         'Notion-Version': '2022-06-28'
     }
 
+def rich_text_to_markdown(rich_text):
+    """
+    Convert rich text to Markdown.
+    """
+    markdown = ''
+    for text_part in rich_text:
+        text = text_part['plain_text']
+        link = text_part['href']
+        annotations = text_part.get('annotations', {})
+        
+        # Check if it's inline code
+        code_annotation = annotations.get('code', False)
+        if code_annotation:
+            markdown += f"`{text}`"
+        else:
+            if link:
+                markdown += f"[{text}]({link})"
+            else:
+                markdown += text
+    return markdown
+
+
 def block_to_markdown(block, indent=0):
     """
     Convert a Notion block to Markdown.
@@ -52,31 +74,33 @@ def block_to_markdown(block, indent=0):
     indent_space = '  ' * indent  # Two spaces for each level of indentation
 
     if block_type == 'heading_1':
-        return f"{indent_space}# {block['heading_1']['rich_text'][0]['plain_text']}\n\n"
+        return f"{indent_space}# {rich_text_to_markdown(block['heading_1']['rich_text'])}\n\n"
     elif block_type == 'heading_2':
-        return f"{indent_space}## {block['heading_2']['rich_text'][0]['plain_text']}\n\n"
+        return f"{indent_space}## {rich_text_to_markdown(block['heading_2']['rich_text'])}\n\n"
     elif block_type == 'heading_3':
-        return f"{indent_space}### {block['heading_3']['rich_text'][0]['plain_text']}\n\n"
+        return f"{indent_space}### {rich_text_to_markdown(block['heading_3']['rich_text'])}\n\n"
     elif block_type == 'paragraph':
-        return f"{indent_space}{block['paragraph']['rich_text'][0]['plain_text']}\n\n"
+        return f"{indent_space}{rich_text_to_markdown(block['paragraph']['rich_text'])}\n\n"
     elif block_type == 'bulleted_list_item':
-        markdown = f"{indent_space}- {block['bulleted_list_item']['rich_text'][0]['plain_text']}\n"
+        markdown = f"{indent_space}- {rich_text_to_markdown(block['bulleted_list_item']['rich_text'])}\n"
         if block['has_children']:
             child_blocks = fetch_child_blocks(block['id'])
             for child in child_blocks:
                 markdown += block_to_markdown(child, indent + 1)
         return markdown
     elif block_type == 'numbered_list_item':
-        markdown = f"{indent_space}1. {block['numbered_list_item']['rich_text'][0]['plain_text']}\n"
+        markdown = f"{indent_space}1. {rich_text_to_markdown(block['numbered_list_item']['rich_text'])}\n"
         if block['has_children']:
             child_blocks = fetch_child_blocks(block['id'])
             for child in child_blocks:
                 markdown += block_to_markdown(child, indent + 1)
+
+        markdown += "\n\n"
         return markdown
     elif block_type == 'code':
-        return f"```\n{block['code']['rich_text'][0]['plain_text']}\n```\n\n"
+        return f"```\n{rich_text_to_markdown(block['code']['rich_text'])}\n```\n\n"
     elif block_type == 'image':
-        return f"{indent_space}![{block['image']['caption']}]({block['image']['file']['url']})\n\n"
+        return f"{indent_space}![{rich_text_to_markdown(block['image']['caption'])}]({block['image']['file']['url']})\n\n"
     # Add more block types as needed
     return ""
 
