@@ -19,6 +19,7 @@ const DesktopNavbar = () => {
         localStorage.removeItem('access_token');
         localStorage.removeItem('refresh_token');
         localStorage.removeItem('user_id');
+        localStorage.removeItem('csrf');
         setToken(null);
         router.push('/login');
     };
@@ -107,7 +108,7 @@ const MobileNavbar = () => {
     }
   
     return (
-      <div className="fixed h-screen w-full z-50">
+      <div className="fixed w-full z-50">
         <header>
           <div className="fixed top-5 right-5 flex items-center justify-center w-14 h-14 cursor-pointer" onClick={isOpen}>
             <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" className="bi bi-list" viewBox="0 0 16 16">
