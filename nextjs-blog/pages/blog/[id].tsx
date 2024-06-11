@@ -21,6 +21,8 @@ const BlogPost = () => {
             const fetchPostContent = async () => {
                 try {
                     const data = await getPost(id as string);
+
+                    console.log(data.json)
                     setPost(data);
                     setLoading(false);
                 } catch (err) {
@@ -48,9 +50,9 @@ const BlogPost = () => {
     }
 
     return (
-        <div className='px-40 py-20 text-xl blog-wrapper text-white'>
+        <div className='px-10 md:px-40 py-20 text-base md:text-xl blog-wrapper text-white'>
             {post && (
-                <div className='text-2xl'>
+                <div className='md:text-2xl'>
                     {/* Render additional post content here */}
                     <ReactMarkdown
                         children={post.markdown}
@@ -58,7 +60,7 @@ const BlogPost = () => {
                             code({ node, className, children, ...props }: { node: any, className: string, children: string, inline?: boolean }) {
                                 const match = /language-(\w+)/.exec(className || '');
                                 return !props.inline && match ? (
-                                    <pre className={className} {...props}>
+                                    <pre className={`${className} text-sm`} {...props}>
                                         <code className={className}>
                                             {hljs.highlight(match[1], String(children)).value}
                                         </code>
