@@ -24,9 +24,10 @@ body {
   padding: 0;
   margin: 0;
   overflow-x: hidden;
-  background: #111 !important; /* Set background color to dark gray */
+  background: #000 !important; /* Set background color to dark gray */
   /* font-family: "Neue Haas Grotesk Display Pro 75 Bold"; */
   font-family: "Antonio", sans-serif;
+  scroll-behavior: smooth;
 }
 
 a {
@@ -47,14 +48,15 @@ img {
 
 /* width */
 ::-webkit-scrollbar {
-  width: 7px;
+  height: 5px; /* Change height to match the vertical scrollbar */
+  width: 5px;
 }
 
 /* Track */
 ::-webkit-scrollbar-track {
   border-radius: 10px;
 }
- 
+
 /* Handle */
 ::-webkit-scrollbar-thumb {
   background: white; 
@@ -64,6 +66,22 @@ img {
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
   cursor: pointer; 
+}
+
+@layer utilities {
+  /* Hide scrollbar for Chrome, Safari and Opera */
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  /* Hide scrollbar for IE, Edge and Firefox */
+  .no-scrollbar {
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+  }
+  .scrollbar-black::-webkit-scrollbar-thumb {
+    background: black; 
+  }
+
 }
 
 .slide-in{
@@ -123,9 +141,9 @@ img {
 }
 
 .blog-wrapper pre > code{
-  font-size: 1rem;
   padding: 2rem;
   font-family: 'Source Code Pro', monospace !important;
+  font-size: large;
 }
 
 
@@ -138,4 +156,25 @@ img {
   -webkit-text-stroke: 1px white;
   -webkit-text-stroke-width: 1px;
   -webkit-text-stroke-color: white;
+}
+
+@media screen and (max-width: 768px) {
+  .blog-wrapper h1{
+    font-size: 2.5rem;
+    line-height: 2.5rem;
+    padding-bottom: 3rem;
+    word-wrap: normal;
+  }
+  
+  .blog-wrapper h2{
+    font-size: 1.5rem;
+    padding-top: 3rem;
+    padding-bottom: 1rem;
+    font-style: italic;
+  }
+  .blog-wrapper pre > code{
+    padding: 2rem;
+    font-family: 'Source Code Pro', monospace !important;
+    font-size: small;
+  }
 }

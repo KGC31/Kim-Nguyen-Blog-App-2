@@ -6,7 +6,7 @@ import Head from 'next/head'
 
 
 import { DesktopNavbar, MobileNavbar } from '../components/navbar'
-import Cursor from '../components/cursor'
+import Cursor from '../components/ui/cursor'
 
 import '../styles/global.css'
 

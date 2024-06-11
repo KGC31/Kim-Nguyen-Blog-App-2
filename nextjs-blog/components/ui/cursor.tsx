@@ -1,6 +1,6 @@
 // components/CustomCursor.tsx
 import { useEffect, useRef } from 'react';
-import styles from '../styles/cursor.module.css';
+import styles from '../../styles/cursor.module.css';
 
 const CustomCursor = () => {
   const cursorRef = useRef<HTMLDivElement>(null);

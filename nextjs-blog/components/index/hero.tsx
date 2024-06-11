@@ -54,8 +54,8 @@ export default function Hero() {
     }, []);
 
     return (
-        <div className='w-screen h-screen'>
-            <Particles
+        <>
+            {/* <Particles
                 id="tsparticles"
                 className="z-0"
                 init={particlesInit}
@@ -129,10 +129,12 @@ export default function Hero() {
                     },
                     detectRetina: true,
                 }}
-            />
-            <div className="grid justify-center place-content-center w-screen h-screen z-10 text-center">
-                <h1 ref={shuffleRef} className={`shuffle text-white text-4xl sm:text-6xl z-10 ${styles.hero_title}`}>KIM NGUYEN</h1>
+            /> */}
+            <div className="h-[50rem] w-full bg-black  bg-grid-white/[0.2] relative flex items-center justify-center">
+                {/* Radial gradient for the container to give a faded look */}
+                <div className="absolute pointer-events-none inset-0 flex items-center justify-center bg-black  [mask-image:radial-gradient(ellipse_at_top,transparent_20%,black)]"></div>
+                <h1 ref={shuffleRef} className={`shuffle text-white text-4xl sm:text-6xl text-center z-10 py-8 -translate-y-1/2 ${styles.hero_title}`}>KIM NGUYEN</h1>
             </div>
-        </div>
+        </>
     );
 }

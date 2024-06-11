@@ -19,7 +19,7 @@ const About = () => {
         ] as const;
     }
 
-    const text = "Hi my name is Kim Nguyen, a dedicated fresher software engineer of Ho Chi Minh University of Science, working in the fields of website development and computer vision.";
+    const text = "Hi, my name is Kim Nguyen, a dedicated fresher software engineer at Ho Chi Minh University of Science, studying computer vision. I share a great passion for the beauty of data, the excitement of building websites, and the urge to learn new things. I am working to become a software engineer and deliver high-quality products. ";
 
     useEffect(() => {
         const anim = gsap.to(lettersRef.current, {
@@ -29,7 +29,7 @@ const About = () => {
                 start: "top 80%",
                 end: "bottom 80%"
             },
-            color: "#FFF",
+            color: "#000",
             duration: 5,
             stagger: 1
         });
@@ -40,10 +40,13 @@ const About = () => {
     }, [lettersRef]);
 
     return (
-        <div className='my-20'>
-            <div className="reveal">
-                <div ref={triggerRef} className='z-10 w-screen flex justify-end px-10 uppercase font-bold'>
-                    <p className="text-[#2A2A2A] md:text-8xl text-5xl text-justify w-2/3">
+        <div className=''>
+            <div className="reveal w-screen flex justify-center">
+                <div ref={triggerRef} className='z-10 flex flex-col justify-center items-center uppercase font-bold border borer-white rounded-3xl w-11/12 md:w-9/12 px-10 py-10 bg-white'>
+                    <h1 className='mb-20 text-center'>
+                        [ABOUT]
+                    </h1>
+                    <p className="text-gray-300 md:text-6xl text-4xl text-justify w-2/3 mb-10">
                         {text.split("").map((letter, index) => (
                             <span className="reveal-text" key={index} ref={setlettersRef}>
                                 {letter}
