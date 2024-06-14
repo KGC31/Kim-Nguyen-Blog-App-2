@@ -106,12 +106,14 @@ img {
 
 .blog-wrapper h1{
   font-size: 4rem;
+  line-height: 4rem;
   padding-bottom: 3rem;
   word-wrap: normal;
 }
 
 .blog-wrapper h2{
   font-size: 2.5rem;
+  line-height: 2.5rem;
   padding-top: 3rem;
   padding-bottom: 1rem;
   font-style: italic;
@@ -177,4 +179,17 @@ img {
     font-family: 'Source Code Pro', monospace !important;
     font-size: small;
   }
+}
+
+.blog-wrapper table {
+  border-collapse: collapse;
+  border-spacing: 0;
+  width: 100%;
+  border: 1px solid #ddd;
+}
+
+.blog-wrapper th, td {
+  text-align: left;
+  padding: 8px;
+  border: 1px solid #ddd;
 }

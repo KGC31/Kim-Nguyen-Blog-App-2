@@ -67,9 +67,11 @@ MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
 ]
 
-# CORS headers settings
+
+CORS_ALLOW_ALL_ORIGINS = True# CORS headers settings
 CORS_ALLOWED_ORIGINS = [
     "https://kimnguyen-blog.vercel.app",  # Add your frontend URL
+    "http://localhost:3000",
 ]
 CORS_ALLOW_CREDENTIALS = True
 

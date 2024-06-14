@@ -1,9 +1,11 @@
-'use client'
+'use client';
+
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import ReactMarkdown from 'react-markdown';
 import rehypeKatex from 'rehype-katex';
 import remarkMath from 'remark-math';
+import remarkGfm from 'remark-gfm';  // Import remark-gfm
 import 'katex/dist/katex.min.css';
 import hljs from 'highlight.js';
 import 'highlight.js/styles/base16/apprentice.css';  // Adjust the theme as needed
@@ -54,12 +56,12 @@ const BlogPost = () => {
     }
 
     return (
-        <div className='px-10 md:px-40 py-20 text-base md:text-xl blog-wrapper text-white'>
+        <div className='px-10 md:px-40 py-20 text-base md:text-xl blog-wrapper text-white overflow-x-auto'>
             {post && (
                 <div className='md:text-2xl'>
                     <ReactMarkdown
                         children={post.markdown}
-                        remarkPlugins={[remarkMath]}
+                        remarkPlugins={[remarkMath, remarkGfm]}  // Add remarkGfm plugin here
                         rehypePlugins={[rehypeKatex]}
                     />
                 </div>
