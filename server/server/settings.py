@@ -48,13 +48,10 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'core.apps.CoreConfig',
     'posts.apps.PostsConfig',
-    'accounts.apps.AccountsConfig',
     'rest_framework_simplejwt',
     'rest_framework',
     'corsheaders',
 ]
-
-AUTH_USER_MODEL = 'accounts.User'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -117,13 +114,12 @@ WSGI_APPLICATION = 'server.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': os.getenv('DB_NAME'),
-        'USER': os.getenv('DB_USER'),
-        'PASSWORD': os.getenv('DB_PASSWORD'),
-        'HOST': os.getenv('DB_HOST'),
-        'PORT': os.getenv('DB_PORT'),
-    }
+            'ENGINE': 'djongo',
+            'NAME': os.getenv('DB_NAME'),
+            'CLIENT': {
+                'host': os.getenv('DB_CONNECTION_STRING')
+            }  
+        }
 }
 
 
